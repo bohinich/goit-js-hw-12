@@ -58,3 +58,18 @@ export function showLoadMoreButton() {
 export function hideLoadMoreButton() {
     loadMoreBtn.classList.remove("visible");
 }
+
+
+export function showEndMessage() {
+    const endMessage = document.querySelector(".end-message");
+    if (endMessage) {
+        endMessage.style.display = "block";  
+    }
+}
+
+export function hideEndMessage() {
+    const endMessage = document.querySelector(".end-message");
+    if (endMessage) {
+        endMessage.style.display = "none";  
+    }
+}
