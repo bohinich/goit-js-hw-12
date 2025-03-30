@@ -6,15 +6,15 @@ import {
     hideLoader, 
     showLoadMoreButton, 
     hideLoadMoreButton,
-    showEndMessage, 
-    hideEndMessage  
+    showEndMessage,  
+    hideEndMessage   
 } from "./js/render-functions.js";
 import iziToast from "izitoast";
 
-const form = document.querySelector(".form");
+const form = document.querySelector(".search-form");
 const searchInput = form.querySelector("input[name='searchQuery']");
 const loadMoreBtn = document.querySelector(".load-more");
-const endMessage = document.querySelector(".end-message");  
+const endMessage = document.querySelector(".end-message");   
 
 let query = "";
 let page = 1;
@@ -76,7 +76,7 @@ loadMoreBtn.addEventListener("click", async () => {
         createGallery(data.hits);
         if (page * perPage >= data.totalHits) {
             hideLoadMoreButton();
-            showEndMessage();  
+            showEndMessage(); 
             iziToast.info({
                 title: "End of results",
                 message: "You've reached the end of search results.",
@@ -101,7 +101,7 @@ function smoothScroll() {
     if (card) {
         const cardHeight = card.getBoundingClientRect().height;
         window.scrollBy({
-            top: cardHeight * 2,
+            top: cardHeight * 2,  
             behavior: 'smooth'
         });
     }
