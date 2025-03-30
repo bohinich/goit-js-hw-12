@@ -4,7 +4,7 @@ const API_KEY = "49365626-6bf9b0bb5948f971197bdaec6";
 const BASE_URL = "https://pixabay.com/api/";
 const PER_PAGE = 15;
 
-export async function getImagesByQuery(query, page = 1) {
+export async function getImagesByQuery(query, page) {
     try {
         const response = await axios.get(BASE_URL, {
             params: {
@@ -14,10 +14,10 @@ export async function getImagesByQuery(query, page = 1) {
                 orientation: "horizontal",
                 safesearch: true,
                 per_page: PER_PAGE,
-                page,
+                page: page,
             },
         });
-
+        
         return response.data;
     } catch (error) {
         console.error("Error fetching images:", error);

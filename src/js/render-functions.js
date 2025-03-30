@@ -5,23 +5,23 @@ import "izitoast/dist/css/iziToast.min.css";
 
 const gallery = document.querySelector(".gallery");
 const loader = document.querySelector(".loader");
-const loadMoreButton = document.querySelector(".load-more");
+const loadMoreBtn = document.querySelector(".load-more");
 
 let lightbox = new SimpleLightbox(".gallery a");
 
 export function showLoader() {
-    loader.style.display = "block";
+    loader.classList.add("visible");
 }
 
 export function hideLoader() {
-    loader.style.display = "none";
+    loader.classList.remove("visible");
 }
 
 export function clearGallery() {
     gallery.innerHTML = "";
 }
 
-export function renderImages(images) {
+export function createGallery(images) {
     if (images.length === 0) {
         iziToast.error({
             title: "Oops!",
@@ -52,25 +52,9 @@ export function renderImages(images) {
 }
 
 export function showLoadMoreButton() {
-    loadMoreButton.style.display = "block";
+    loadMoreBtn.classList.add("visible");
 }
 
 export function hideLoadMoreButton() {
-    loadMoreButton.style.display = "none";
-}
-
-export function showEndOfResultsMessage() {
-    iziToast.info({
-        title: "End",
-        message: "We're sorry, but you've reached the end of search results.",
-        position: "topRight",
-    });
-}
-
-export function scrollToNewImages() {
-    const { height } = gallery.firstElementChild.getBoundingClientRect();
-    window.scrollBy({
-        top: height * 2,
-        behavior: "smooth",
-    });
+    loadMoreBtn.classList.remove("visible");
 }
