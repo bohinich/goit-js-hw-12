@@ -4,9 +4,9 @@ import {
   MESSAGES,
   MESSAGES_BG_COLORS,
   showInfoMessage,
-} from './js/helpers';
-import { getGalleryData } from './js/pixabay-api';
-import { fetchGallery } from './js/render-functions';
+} from './js/helpers.js';
+import { getGalleryData } from './js/pixabay-api.js';
+import { fetchGallery } from './js/render-functions.js';
 
 let queryString = '';
 let currentPage = 1;
