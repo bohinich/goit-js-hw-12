@@ -11,7 +11,7 @@ import {
 } from "./js/render-functions.js";
 import iziToast from "izitoast";
 
-const form = document.querySelector(".form");
+const form = document.querySelector(".search-form");
 const searchInput = form.querySelector("input[name='searchQuery']");
 const loadMoreBtn = document.querySelector(".load-more");
 const endMessage = document.querySelector(".end-message");  
