@@ -1,24 +1,60 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
 
-const gallery = document.querySelector('.gallery');
-let lightbox = new SimpleLightbox('.gallery a');
+const gallery = document.querySelector(".gallery");
+const loader = document.querySelector(".loader");
+const loadMoreBtn = document.querySelector(".load-more");
 
-export function renderImages(images) {
-  const markup = images
-    .map(
-      image => `
-      <a class="gallery-item" href="${image.largeImageURL}">
-        <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-      </a>
-    `
-    )
-    .join('');
+let lightbox = new SimpleLightbox(".gallery a");
 
-  gallery.insertAdjacentHTML('beforeend', markup);
-  lightbox.refresh();
+export function showLoader() {
+    loader.classList.add("visible");
+}
+
+export function hideLoader() {
+    loader.classList.remove("visible");
 }
 
 export function clearGallery() {
-  gallery.innerHTML = '';
+    gallery.innerHTML = "";
+}
+
+export function createGallery(images) {
+    if (images.length === 0) {
+        iziToast.error({
+            title: "Oops!",
+            message: "Sorry, no images found. Try again!",
+            position: "topRight",
+        });
+        return;
+    }
+
+    const markup = images
+        .map(
+            (img) => `
+        <a href="${img.largeImageURL}" class="gallery-item">
+            <img src="${img.webformatURL}" alt="${img.tags}" />
+            <div class="info">
+                <p>Likes: ${img.likes}</p>
+                <p>Views: ${img.views}</p>
+                <p>Comments: ${img.comments}</p>
+                <p>Downloads: ${img.downloads}</p>
+            </div>
+        </a>
+    `
+        )
+        .join("");
+
+    gallery.insertAdjacentHTML("beforeend", markup);
+    lightbox.refresh();
+}
+
+export function showLoadMoreButton() {
+    loadMoreBtn.classList.add("visible");
+}
+
+export function hideLoadMoreButton() {
+    loadMoreBtn.classList.remove("visible");
 }
