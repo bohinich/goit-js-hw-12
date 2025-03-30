@@ -2,31 +2,34 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Search</title>
-  <link rel="stylesheet" href="./css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <header>
-    <form class="search-form">
-      <input type="text" name="searchQuery" placeholder="Search images..." required />
-      <button type="submit">Search</button>
-    </form>
-  </header>
+  
+  <form class="search-form form">
+    <input type="text" name="searchQuery" placeholder="Search images..." required />
+    <button type="submit">Search</button>
+  </form>
 
-  <main>
-    <div class="loader" style="display: none;"></div>
-    <ul class="gallery"></ul>
-    <button id="load-more" class="load-more-btn" style="display: none;">Load more</button>
-    <p id="end-message" class="end-message" style="display: none;">
-      We're sorry, but you've reached the end of search results.
-    </p>
-  </main>
+  
+  <div class="gallery" id="gallery"></div>
 
-  <script type="module" src="./main.js"></script>
+  
+  <span class="loader" style="display: none;">Loading...</span>
+
+  
+  <button class="load-more" style="display: none;">Load more</button>
+
+  
+  <p class="end-message" style="display: none;">
+    We're sorry, but you've reached the end of search results.
+  </p>
+
+  <script src="main.js"></script>
 </body>
 
 </html>
