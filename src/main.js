@@ -5,13 +5,16 @@ import {
     showLoader, 
     hideLoader, 
     showLoadMoreButton, 
-    hideLoadMoreButton 
+    hideLoadMoreButton,
+    showEndMessage, 
+    hideEndMessage  
 } from "./js/render-functions.js";
 import iziToast from "izitoast";
 
 const form = document.querySelector(".search-form");
 const searchInput = form.querySelector("input[name='searchQuery']");
 const loadMoreBtn = document.querySelector(".load-more");
+const endMessage = document.querySelector(".end-message");  
 
 let query = "";
 let page = 1;
@@ -33,6 +36,7 @@ form.addEventListener("submit", async (event) => {
     page = 1;
     clearGallery(); 
     hideLoadMoreButton();
+    hideEndMessage();  
     showLoader();
 
     try {
@@ -72,6 +76,7 @@ loadMoreBtn.addEventListener("click", async () => {
         createGallery(data.hits);
         if (page * perPage >= data.totalHits) {
             hideLoadMoreButton();
+            showEndMessage();  
             iziToast.info({
                 title: "End of results",
                 message: "You've reached the end of search results.",
@@ -89,4 +94,19 @@ loadMoreBtn.addEventListener("click", async () => {
     } finally {
         hideLoader();
     }
+});
+
+function smoothScroll() {
+    const card = document.querySelector('.gallery-item');
+    if (card) {
+        const cardHeight = card.getBoundingClientRect().height;
+        window.scrollBy({
+            top: cardHeight * 2,
+            behavior: 'smooth'
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    smoothScroll();
 });
