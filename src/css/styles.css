@@ -4,8 +4,6 @@
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: lightgray;
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/41294/hero.jpg) no-repeat center center fixed;
-  background-size: cover;
 }
 
 a {
