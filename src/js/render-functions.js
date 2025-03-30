@@ -1,75 +1,54 @@
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+const gallery = document.querySelector('.gallery');
 
-const gallery = document.querySelector(".gallery");
-const loader = document.querySelector(".loader");
-const loadMoreBtn = document.querySelector(".load-more");
+export function fetchGallery(data) {
+  gallery.insertAdjacentHTML('beforeend', markupGallery(data));
 
-let lightbox = new SimpleLightbox(".gallery a");
-
-export function showLoader() {
-    loader.classList.add("visible");
+  lightbox.refresh();
 }
 
-export function hideLoader() {
-    loader.classList.remove("visible");
+function markupGallery(data) {
+  return data.hits
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
+				<li class="gallery-item hvr-grow">
+					<a class="gallery-link" href="${largeImageURL}">
+						<figure class="gallery-figure ">
+							<img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy">
+							<figcaption class="gallery-figcaption">
+								<ul class="img-content-wrapper">
+									<li>Likes<span>${likes}</span></li>
+									<li>Views<span>${views}</span></li>
+									<li>Comments<span>${comments}</span></li>
+									<li>Downloads<span>${downloads}</span></li>
+								</ul>
+							</figcaption>
+						</figure>
+					</a>
+				</li>
+		`
+    )
+    .join('');
 }
 
-export function clearGallery() {
-    gallery.innerHTML = "";
-}
-
-export function createGallery(images) {
-    if (images.length === 0) {
-        iziToast.error({
-            title: "Oops!",
-            message: "Sorry, no images found. Try again!",
-            position: "topRight",
-        });
-        return;
-    }
-
-    const markup = images
-        .map(
-            (img) => `
-        <a href="${img.largeImageURL}" class="gallery-item">
-            <img src="${img.webformatURL}" alt="${img.tags}" />
-            <div class="info">
-                <p>Likes: ${img.likes}</p>
-                <p>Views: ${img.views}</p>
-                <p>Comments: ${img.comments}</p>
-                <p>Downloads: ${img.downloads}</p>
-            </div>
-        </a>
-    `
-        )
-        .join("");
-
-    gallery.insertAdjacentHTML("beforeend", markup);
-    lightbox.refresh();
-}
-
-export function showLoadMoreButton() {
-    loadMoreBtn.classList.add("visible");
-}
-
-export function hideLoadMoreButton() {
-    loadMoreBtn.classList.remove("visible");
-}
-
-
-export function showEndMessage() {
-    const endMessage = document.querySelector(".end-message");
-    if (endMessage) {
-        endMessage.style.display = "block";  
-    }
-}
-
-export function hideEndMessage() {
-    const endMessage = document.querySelector(".end-message");
-    if (endMessage) {
-        endMessage.style.display = "none";  
-    }
+export function fetchLoader() {
+  gallery.insertAdjacentHTML(
+    'beforeend',
+    `<div class='loader-wrapper'>
+        <div class='loader'></div>
+    </div>`
+  );
 }
